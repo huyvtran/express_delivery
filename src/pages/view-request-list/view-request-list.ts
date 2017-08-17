@@ -1,6 +1,6 @@
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage,ViewController, NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the ViewRequestListPage page.
@@ -18,7 +18,7 @@ export class ViewRequestListPage {
   shown:any;
   result=[];
   result_date=[];
-  constructor(public navCtrl: NavController, public navParams: NavParams,public afd:AngularFireDatabase) {
+  constructor(public navCtrl: NavController,public viewCtrl:ViewController, public navParams: NavParams,public afd:AngularFireDatabase) {
     var id=localStorage.getItem("id");
     if(id!=undefined||id!=null){
     this.userId=id;
@@ -57,7 +57,9 @@ export class ViewRequestListPage {
      })
     })
   }
- 
+  goBack(){
+    this.viewCtrl.dismiss();
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViewRequestListPage');
   }

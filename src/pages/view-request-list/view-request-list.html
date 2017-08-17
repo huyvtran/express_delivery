@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+      <button start class="nav" (click)="goBack()" ion-button >
+          <ion-icon name="arrow-back" ></ion-icon>
+      </button>
     <ion-title>나의 배달 리스트</ion-title>
   </ion-navbar>
 
@@ -26,7 +29,7 @@
                         <ion-card-content>
                         출발역:  {{item2.startPoint}} &nbsp; &nbsp; <br>
                         도착역:  {{item2.endPoint}} &nbsp; &nbsp; <br>
-                        신청시간 {{item2.create_date}}
+                        신청시간 {{item2.create_date}} <br>
                         현재상태 :  {{item2.status}} &nbsp; &nbsp; <br>
                         </ion-card-content>
                       </p>
