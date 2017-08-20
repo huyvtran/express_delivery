@@ -67,6 +67,7 @@ export class MapDirective implements OnInit,OnChanges  {
      startMarker:any;
      endMarker:any;
      userId:string;
+     foto:string;
     constructor( public toast:ToastController, public loading:LoadingController,public platform:Platform, public http:Http, 
         private dialog:AlertController,public pick:PickupDirective,public geo:Geolocation,
         public afDatabase:AngularFireDatabase,public modal:ModalController
@@ -75,6 +76,7 @@ export class MapDirective implements OnInit,OnChanges  {
 // 
    
     var id=localStorage.getItem("id");
+    this.foto=localStorage.getItem("foto")
     if(id!=undefined||id!=null){
     this.userId=id;
     }else{
@@ -231,9 +233,14 @@ export class MapDirective implements OnInit,OnChanges  {
                       
                        dd<10?day='0'+dd:day=''+dd;
                        mm<10?month='0'+mm:month=''+mm;
+                       let todaywithTime = mm+"/"+dd+"/"+time;
                        let todayNoTime= yyyy+" "+mm+" "+dd;
+                       var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(this.request.startLat,this.request.startLng),
+                       new google.maps.LatLng(this.request.endLat,this.request.endLng));       
+                        distance=distance/1000;
+                        distance=distance.toFixed(2);
                        var notificationObj = {title:{en:"배달원 지정안내"}, contents: {en:"칙칙폭폭 배달원이 지정되었습니다.\n 확인해보세요"},
-                       "data": {"welcome": true, "name":this.userId},
+                       "data": {"welcome": true, "id":this.userId,"foto":this.foto,"time": todaywithTime,"distance":distance},
                        include_player_ids: [tokenId]};
                         
                         
