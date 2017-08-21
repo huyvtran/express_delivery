@@ -1,6 +1,8 @@
 export interface Profile_User{
-    username:string;
-    firstName:string;
+    id:string;
     foto:string;
-    status:string;
+    created_date:string;
+    first:boolean;
+    notiId:string;
+    uid:string;
 }

@@ -68,13 +68,15 @@ export class MapDirective implements OnInit,OnChanges  {
      endMarker:any;
      userId:string;
      foto:string;
+     uid:string;
+     tokenId:string;
     constructor( public toast:ToastController, public loading:LoadingController,public platform:Platform, public http:Http, 
         private dialog:AlertController,public pick:PickupDirective,public geo:Geolocation,
         public afDatabase:AngularFireDatabase,public modal:ModalController
   ){
 //      
 // 
-   
+   this.uid=localStorage.getItem("uid");
     var id=localStorage.getItem("id");
     this.foto=localStorage.getItem("foto")
     if(id!=undefined||id!=null){
@@ -219,6 +221,7 @@ export class MapDirective implements OnInit,OnChanges  {
                        this.request.orderNo=orderNo;
                        this.request.onlyDate=create_date.substring(0,10);
                        this.request.deliveryGuy="not defined yet";
+                       this.request.uid=this.uid;
                        console.log("?s")
                        console.log(this.request.orderNo)
                        let today = new Date();
@@ -230,15 +233,15 @@ export class MapDirective implements OnInit,OnChanges  {
                
                        var yyyy = today.getFullYear();
                       var time=new Date().toLocaleTimeString('en-US', { hour12: false,hour: "numeric",minute: "numeric"});
-                      
                        dd<10?day='0'+dd:day=''+dd;
                        mm<10?month='0'+mm:month=''+mm;
                        let todaywithTime = mm+"/"+dd+"/"+time;
                        let todayNoTime= yyyy+" "+mm+" "+dd;
-                       var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(this.request.startLat,this.request.startLng),
-                       new google.maps.LatLng(this.request.endLat,this.request.endLng));       
+                       var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(startLat,startLng),
+                       new google.maps.LatLng(endLat,endLng));       
                         distance=distance/1000;
                         distance=distance.toFixed(2);
+                        
                        var notificationObj = {title:{en:"배달원 지정안내"}, contents: {en:"칙칙폭폭 배달원이 지정되었습니다.\n 확인해보세요"},
                        "data": {"welcome": true, "id":this.userId,"foto":this.foto,"time": todaywithTime,"distance":distance},
                        include_player_ids: [tokenId]};
@@ -264,9 +267,9 @@ export class MapDirective implements OnInit,OnChanges  {
                                     window["plugins"].OneSignal.postNotification(notificationObj,
                                         (successResponse)=> {
                                             this.request.deliveryGuy=this.userId;
-                                            this.afDatabase.object('/requestedList/assigned/'+todayNoTime+'/'+orderNo).set(this.request);
-                                            this.afDatabase.object('/requestedList/requestedAll/'+todayNoTime+'/'+orderNo).set(this.request);
-                                            this.afDatabase.object('/requestedList/requested/'+todayNoTime+'/'+orderNo).remove();
+                                            this.afDatabase.object('/requestedList/assigned/'+orderNo).set(this.request);
+                                            this.afDatabase.object('/requestedList/requestedAll/'+orderNo).set(this.request);
+                                            this.afDatabase.object('/requestedList/requested/'+orderNo).remove();
                                             let toast = this.toast.create({
                                                 message: '전송되었습니다.',
                                                 duration: 3000,

@@ -7,6 +7,7 @@ import { StartPage } from './../pages/start/start';
 import { SignupPage } from './../pages/signup/signup';
 import { ProfilePage } from './../pages/profile/profile';
 import { LoginPage } from './../pages/login/login';
+import { ChatPage } from './../pages/chat/chat';
 import { HttpModule } from '@angular/http';
 import { PickupCar } from './../components/pickup-car/pickup-car';
 import { MapDirective } from './../components/map';
@@ -63,7 +64,8 @@ import { MetroServiceProvider } from '../providers/metro-service/metro-service';
     EndPage,
     ViewRequestListPage,
     ViewRequestedAllPage,
-    NotifiedPage
+    NotifiedPage,
+    ChatPage
 
   ],
   imports: [
@@ -90,7 +92,8 @@ import { MetroServiceProvider } from '../providers/metro-service/metro-service';
     EndPage,
     ViewRequestListPage,
     ViewRequestedAllPage,
-    NotifiedPage
+    NotifiedPage,
+    ChatPage
     
     
   ],

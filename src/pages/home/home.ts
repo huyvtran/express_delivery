@@ -103,17 +103,7 @@ export class HomePage implements OnInit,OnChanges  {
       this.result_metro=data;
     });
     
-    if(this.platform.is('android')){
-       window["plugins"].OneSignal
-                        .startInit("2192c71b-49b9-4fe1-bee8-25617d89b4e8", "916589339698")
-                        .handleNotificationOpened(notificationOpenedCallback)
-                        .endInit();
-                         var notificationOpenedCallback = function(jsonData) {
-                           alert("sss")
-        alert(JSON.stringify(jsonData))
-    };
-    }
-   
+  
     
  this.items=this.afDatabase.list('/requestedList/requested', { preserveSnapshot: true })
        this.items.subscribe(snapshots=>{
@@ -128,7 +118,8 @@ export class HomePage implements OnInit,OnChanges  {
     this.pages=[
         
         {title:'로그인',component:LoginPage,attr:"Login"},
-        {title:'나의 주문 목록 보기',component:ViewRequestListPage,attr:"request"},
+        {title:'배달 목록 보기',component:ViewRequestListPage,attr:"request"},
+        {title:'내 평가 확인',component:ViewRequestListPage,attr:"rating"},
         {title:'로그아웃',component:ViewRequestListPage,attr:"Logout"}
       ]
       this.activePage=this.pages[0];
@@ -146,6 +137,7 @@ export class HomePage implements OnInit,OnChanges  {
       if(this.platform.is("android")){
 
         this.googleplus.logout();
+        this.navCtrl.setRoot(LoginPage);
       }else{
         alert("not web")
       }

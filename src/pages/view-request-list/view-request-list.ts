@@ -1,7 +1,7 @@
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Component } from '@angular/core';
 import { IonicPage,ViewController, NavController, NavParams } from 'ionic-angular';
-
+import {ChatPage } from './../chat/chat'
 /**
  * Generated class for the ViewRequestListPage page.
  *
@@ -18,6 +18,7 @@ export class ViewRequestListPage {
   shown:any;
   result=[];
   result_date=[];
+  
   constructor(public navCtrl: NavController,public viewCtrl:ViewController, public navParams: NavParams,public afd:AngularFireDatabase) {
     var id=localStorage.getItem("id");
     if(id!=undefined||id!=null){
@@ -39,7 +40,7 @@ export class ViewRequestListPage {
         var keysFiltered = Object.keys(element.val()).filter(function(item){return !( element.val()[item] == undefined)});
    
   var valuesFiltered = keysFiltered.map((item)=> {
-    if(element.val()[item].user==this.userId){
+    if(element.val()[item].deliveryGuy==this.userId){
       console.log(item);
       console.log(element.val()[item]);
      
@@ -56,6 +57,9 @@ export class ViewRequestListPage {
   
      })
     })
+  }
+  chat(itemObject){
+    this.navCtrl.push(ChatPage,{item:itemObject})
   }
   goBack(){
     this.viewCtrl.dismiss();
