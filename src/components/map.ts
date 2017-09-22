@@ -589,15 +589,8 @@ centerLocation(location){
       this.map.panTo(location);
       loading.dismiss();
     }).catch((error =>{
-        //position error 발생시 다시 위치 추척
         loading.dismiss();
-    //   this.geo.getCurrentPosition(options).then(resp=>{
-    //   let lat=resp.coords.latitude;
-    //   let lng=resp.coords.longitude;
-    //   let location=new google.maps.LatLng(lat,lng);
-    //   this.map.panTo(location);
-    //   loading.dismiss()
-    //     })
+    
     }))
     
     })

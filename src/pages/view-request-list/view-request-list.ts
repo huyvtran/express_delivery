@@ -2,6 +2,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Component } from '@angular/core';
 import { IonicPage,ViewController, NavController, NavParams } from 'ionic-angular';
 import {ChatPage } from './../chat/chat'
+import { HomePage } from './../home/home'
 /**
  * Generated class for the ViewRequestListPage page.
  *
@@ -37,23 +38,27 @@ export class ViewRequestListPage {
        console.log("key value");
        console.log(element.key);
          console.log(element.val());
-        var keysFiltered = Object.keys(element.val()).filter(function(item){return !( element.val()[item] == undefined)});
+         if(element.val().deliveryGuy==this.userId){
+           this.result_date.push(element.val().onlyDate);
+           this.result.push(element.val());
+         }
+        // var keysFiltered = Object.keys(element.val()).filter(function(item){return !( element.val()[item] == undefined)});
    
-  var valuesFiltered = keysFiltered.map((item)=> {
-    if(element.val()[item].deliveryGuy==this.userId){
-      console.log(item);
-      console.log(element.val()[item]);
+  // var valuesFiltered = keysFiltered.map((item)=> {
+  //   if(element.val()[item].deliveryGuy==this.userId){
+  //     console.log(item);
+  //     console.log(element.val()[item]);
      
-      this.result_date.push(element.val()[item].onlyDate)
-      console.log("rrresult")
-      console.log(this.result_date);
-      this.result.push(element.val()[item])
-        console.log(this.result);
-        this.result_date=Array.from(new Set(this.result_date))
-        console.log(this.result_date);
-    }
+  //     this.result_date.push(element.val()[item].onlyDate)
+  //     console.log("rrresult")
+  //     console.log(this.result_date);
+  //     this.result.push(element.val()[item])
+  //       console.log(this.result);
+  //       this.result_date=Array.from(new Set(this.result_date))
+  //       console.log(this.result_date);
+  //   }
    
-  });
+  // });
   
      })
     })
@@ -62,7 +67,7 @@ export class ViewRequestListPage {
     this.navCtrl.push(ChatPage,{item:itemObject})
   }
   goBack(){
-    this.viewCtrl.dismiss();
+    this.navCtrl.push(HomePage);
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViewRequestListPage');
